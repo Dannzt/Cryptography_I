@@ -1,9 +1,19 @@
  <h1 align="center">Notes </a> </h1>
-  <br>
+
+  <h2 align="center"> Some pessoal week notes <br> in Portuguese</h2> 
+
+
+<details>	
+ <summary><b> Week 1 </b> </b></summary> 
   
+ ------------------------------------------------------------------------
+  </details>
+ 
+  <details>	
+ <summary><b> Week 2 </b></summary> 
 <h3 align="center"> <a> CPA Security : Semantic Security for many-time key</a>  </h3>
 
-**Ciphers insecure under CPA**
+<h3 align="center">Ciphers insecure under CPA </h3>
 
 Quando temos uma mensagem criptografia uma única vez, dado a mesma mensagem criptografada duas vezes não é realmente seguro pois, podemos mandar a mesma mensagem criptografada duas vezes, quando vemos que a forma semântica é a mesma, vemos que a forma semântica m1 e m2 semântica serão iguais, sabendo a forma que é a criptografia e descobrindo a mensagem secreta. Porque com o mesmo conteúdo nesses dois arquivos.
 
@@ -105,6 +115,43 @@ Construction 2: Rand crt-mode
 
 O modo CTR supera o CBC em diversos aspectos cruciais: paralelização, segurança, eficiência e flexibilidade. Por isso, é amplamente recomendado em sistemas modernos. No entanto, ambos os modos devem ser complementados com mecanismos que garantam integridade para mitigar vulnerabilidades em cenários práticos.
 
+ -----------------------------------------------------------------------------------------------------------------------------------------------
+</details> 
+
+<details>	
+ <summary><b> Week 3 </b> </b></summary> 
+  <h4> Week 3 </h4>
+ 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+  </details>
+
+  <details>	
+ <summary><b> Week 4</b> </b></summary> 
+  <h4> Week 4 </h4>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+  </details>
+
+<details>	
+ <summary><b> Week 5 </b> </b></summary> 
+  <h4> Week 5 </h4>
+ 
+-----------------------------------------------------------------------------------------------------------------------------------------------
+  </details>
+
+  <details>	
+ <summary><b> Week 6 </b> </b></summary> 
+  <h4> Week 6 </h4>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+  </details>
+
+<details>	
+ <summary><b> Week 7 </b> </b></summary> 
+  <h4> Week 7 </h4>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+  </details>
 
 ----------------------------
 
