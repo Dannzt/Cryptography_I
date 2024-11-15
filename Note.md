@@ -1,15 +1,15 @@
  <h1 align="center">Notes </a> </h1>
   <br>
   
-CPA Security : Semantic Security for many-time key
+<h3 align="center"> <a> CPA Security : Semantic Security for many-time key</a>  </h3>
 
-Ciphers insecure under CPA
+**Ciphers insecure under CPA**
 
 Quando temos uma mensagem criptografia uma única vez, dado a mesma mensagem criptografada duas vezes não é realmente seguro pois, podemos mandar a mesma mensagem criptografada duas vezes, quando vemos que a forma semântica é a mesma, vemos que a forma semântica m1 e m2 semântica serão iguais, sabendo a forma que é a criptografia e descobrindo a mensagem secreta. Porque com o mesmo conteúdo nesses dois arquivos.
 
 ![image.png](https://i.imgur.com/A8up6Vw.png)
 
-Solution 1: Encriptação randomica:
+**Solution 1: Encriptação randomica:**
 
 Uma forma que poderia ser abordada para resolver o problema de uma criptografia única seria a randomização dos caracteres criptografados.
 
@@ -21,7 +21,7 @@ Então a criptografia randômica é uma boa solução mas em alguns casos ela re
 
 ![image.png](https://i.imgur.com/zGEIsWN.png)
 
-Solution 2: nonce-based Encryption:
+**Solution 2: nonce-based Encryption:**
 
  Nonce é um valor publico, o adversário tem acesso a essa ao valor nonce, mas toda vez que for passada uma mensagem será escolhida um novo nonce para essa mensagem. ela não precisa sem segura e nem aleatória. O único requsito que o nonce tem que ser EXCLUSIVO. 
 
@@ -39,7 +39,7 @@ Nesse modo seria muito util na utilização de vários dispositivos, pode eu pod
 
 O NONCE SEMPRE VAI SER EXCLUSIVO.
 
-CBC: Encadeamento de blocos de cifra.
+<h3 align="center"> <a>CBC: Encadeamento de blocos de cifra. </a> </h3>
 
 O encadeamento de blocos de cifra usa uma cifra de bloco para escolher a segurança do texto simples, em particular com o blocos de cifras aleatórios IVeX 
 
@@ -49,7 +49,7 @@ Utilizando o bloco cifrado na primeira cifra de bloco para passar uma mascara co
 
 E o texto cifrado final será essencialmente o IV, o IV inical que escolhemos junto com todos os blocos de texto cifrado. Devo dizer que IV significa Vetor de Inicialização.
 
-CBC: CPA Analysis
+<h3 align="center"> <a>CBC: CPA Analysis </a> </h3>
 
 No CBC, cada bloco cifrado é influenciado pelo bloco anterior e pelo vetor de inicialização (IV). Porém, se o IV for previsível ou reutilizado, o modo CBC pode se tornar vulnerável a ataques CPA. O atacante pode explorar a relação entre blocos de texto simples e cifrado para inferir informações sobre a chave ou os dados originais.
 
@@ -69,6 +69,41 @@ Muito importante que o programador saiba que isso precisa ser feito, caso contr�
   
 (copiei pq não entendiporranhumaaqui)<br>
 Então suponha que o valor seja cinco, então ele simplesmente remove os últimos cinco bytes da mensagem. Agora a questão é o que fazemos se de fato a mensagem for um múltiplo de dezesseis bytes, então de fato nenhum preenchimento é necessário? Se não preenchermos nada, bem, isso é um problema porque o decifrador vai olhar para o último byte do último bloco que não faz parte da mensagem real e ele vai remover essa quantidade de bytes do texto simples. Então isso realmente seria um problema. Então a solução é, se de fato não houver nenhum preenchimento necessário, ainda assim temos que adicionar um bloco fictício. E já que adicionamos o bloco fictício, este seria um bloco que basicamente contém dezesseis bytes, cada um contendo o número dezesseis. Ok, então adicionamos essencialmente dezesseis blocos fictícios. O decifrador, que quando ele está decifrando, ele olha para o último byte do último bloco, ele vê que o valor é dezesseis, portanto ele remove o bloco inteiro. E o que sobra é o texto simples real. Então é um pouco lamentável que, de fato, se você estiver criptografando mensagens curtas com CBC e as mensagens tiverem, digamos, 32 bytes, então elas são um múltiplo de dezesseis bytes, então você tem que adicionar mais um bloco e fazer todos esses textos cifrados terem 48 bytes apenas para acomodar o preenchimento do CBC. Devo mencionar que há uma variante do CBC chamada CBC com roubo de texto cifrado que realmente evita esse problema.
+
+Construction 2: Rand crt-mode
+
+<h3 align="center"> <a>Randomized Counter Mode (CTR):</a> </h3>
+
+![image.png](https://i.imgur.com/bx9KJRy.png)
+
+É um modo de cifra de blocos que utiliza uma **PRF (Função Pseudoaleatória)** em vez de uma **PRP (Permutação Pseudoaleatória)**, tornando-o mais flexível que o CBC. No CTR, um vetor de inicialização (IV) aleatório é escolhido para cada mensagem. Este IV serve como base para gerar um "contador" que cifra os blocos da mensagem através de uma operação XOR com o resultado da função PRF.
+
+**Principais Vantagens do CTR sobre o CBC:**
+
+1. **Paralelização:**
+    - CTR é totalmente paralelizável, permitindo a criptografia simultânea de blocos.
+    - CBC é sequencial, dificultando o uso eficiente de hardware.
+2. **Eficiência:**
+    - Dispensa a operação de decriptação, utilizando apenas a PRF no sentido direto.
+    - Compatível com primitivas como Salsa20 (uma PRF, não uma PRP).
+3. **Segurança Aprimorada:**
+    - CTR permite criptografar mais blocos com a mesma chave antes de comprometer a segurança, em comparação ao CBC.
+    - CBC exige maior cautela na reutilização de chaves devido a parâmetros mais restritivos.
+4. **Ausência de Problemas de Preenchimento:**
+    - CBC requer a adição de blocos extras (dummy blocks) para mensagens que são múltiplos do tamanho do bloco.
+    - CTR não enfrenta esse problema.
+5. **Menor Expansão do Texto Cifrado:**
+    - Em fluxos de mensagens pequenas, CBC expande significativamente o texto cifrado.
+    - CTR mantém o tamanho do texto cifrado proporcional ao texto plano.
+
+**Limitações de Ambos os Modos:**
+
+- Tanto CBC quanto CTR garantem apenas confidencialidade, não fornecendo integridade.
+- Para proteção contra adulterações, devem ser combinados com mecanismos de integridade, como autenticação criptográfica.
+
+**Conclusão:**
+
+O modo CTR supera o CBC em diversos aspectos cruciais: paralelização, segurança, eficiência e flexibilidade. Por isso, é amplamente recomendado em sistemas modernos. No entanto, ambos os modos devem ser complementados com mecanismos que garantam integridade para mitigar vulnerabilidades em cenários práticos.
 
 
 ----------------------------
