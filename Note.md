@@ -5,12 +5,25 @@
 
 <details>	
  <summary><b> Week 1 </b> </b></summary> 
-  
+
+ week 1
+ --------
+ O tópico desta semana é uma visão geral do que é a criptografia, bem como nosso primeiro exemplo de cifras. Os senhores aprenderão sobre pseudoaleatoriedade e como usá-la para criptografia. Também veremos algumas definições básicas de criptografia segura.
+
+ --------
  ------------------------------------------------------------------------
   </details>
  
   <details>	
  <summary><b> Week 2 </b></summary> 
+
+week 2
+--------
+
+Apresentamos uma nova primitiva chamada cifra de bloco que nos permitirá criar formas mais poderosas de criptografia. Examinaremos algumas construções clássicas de cifras de bloco (AES e 3DES) e veremos como usá-las para criptografia. As cifras de bloco são o cavalo de batalha da criptografia e têm muitas aplicações. Na próxima semana, veremos como usar cifras de bloco para fornecer integridade de dados. A tarefa opcional de programação desta semana pede que os alunos criem um sistema de criptografia/descriptografia usando o AES.
+
+--------
+   
 <h3 align="center"> <a> CPA Security : Semantic Security for many-time key</a>  </h3>
 
 <h3 align="center">Ciphers insecure under CPA </h3>
@@ -115,40 +128,71 @@ Construction 2: Rand crt-mode
 
 O modo CTR supera o CBC em diversos aspectos cruciais: paralelização, segurança, eficiência e flexibilidade. Por isso, é amplamente recomendado em sistemas modernos. No entanto, ambos os modos devem ser complementados com mecanismos que garantam integridade para mitigar vulnerabilidades em cenários práticos.
 
+
+
+
  -----------------------------------------------------------------------------------------------------------------------------------------------
 </details> 
 
 <details>	
  <summary><b> Week 3 </b> </b></summary> 
-  <h4> Week 3 </h4>
+ 
+week 3
+--------
+O tópico desta semana é a integridade dos dados. Discutiremos várias construções clássicas para sistemas MAC que são usadas para garantir a integridade dos dados. Por enquanto, discutiremos apenas como evitar a modificação de dados não secretos. Na próxima semana, voltaremos à criptografia e mostraremos como fornecer confidencialidade e integridade. O projeto de programação desta semana mostra como autenticar grandes arquivos de vídeo. Mesmo que o senhor não faça o projeto, leia a descrição do projeto - ele ensina um conceito importante chamado cadeia de hash.
+
+--------
+
  
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
 
   <details>	
  <summary><b> Week 4</b> </b></summary> 
-  <h4> Week 4 </h4>
+   
+ week 4
+ --------
+ O tópico desta semana é criptografia autenticada: métodos de criptografia que garantem tanto a confidencialidade quanto a integridade. Também discutiremos alguns pontos importantes, como a forma de pesquisar dados criptografados. Esta é a nossa última semana de estudo  da criptografia simétrica. Na próxima semana, começaremos com o gerenciamento de chaves e a criptografia de chave pública. Como de costume, há também um projeto de programação de crédito extra. O projeto desta semana envolve um pouco de rede para experimentar um        ataque de texto cifrado escolhido em um site de brinquedo.
+ 
+ --------
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
 
 <details>	
  <summary><b> Week 5 </b> </b></summary> 
-  <h4> Week 5 </h4>
+ 
+week 5
+--------
+O tópico desta semana é a troca básica de chaves: como configurar uma chave secreta entre duas partes. Por enquanto, consideramos apenas protocolos seguros contra espionagem. Essa pergunta motiva os principais conceitos de criptografia de chave pública, mas antes de criarmos sistemas de chave pública, precisamos fazer um breve desvio e abordar alguns conceitos básicos da teoria dos números computacionais. Começaremos com algoritmos que remontam à antiguidade (Euclides) e chegaremos até Fermat, Euler e Legendre. Também mencionaremos de passagem alguns conceitos úteis da matemática do século XX. Na próxima semana, faremos bom uso do nosso trabalho árduo desta semana e construiremos vários sistemas de criptografia de chave pública.
+
+--------
  
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
 
   <details>	
  <summary><b> Week 6 </b> </b></summary> 
-  <h4> Week 6 </h4>
+   
+week 6
+--------
+O tópico desta semana é a criptografia de chave pública: como criptografar usando uma chave pública e descriptografar usando uma chave secreta. A criptografia de chave pública é usada para o gerenciamento de chaves em sistemas de arquivos criptografados, em sistemas de mensagens criptografadas e para muitas outras tarefas. Os vídeos abrangem duas famílias de sistemas de criptografia de chave pública: uma baseada em funções de alçapão (RSA em particular) e outra baseada no protocolo Diffie-Hellman. Construímos sistemas que são seguros contra adulteração, também conhecidos como segurança de texto cifrado escolhido (segurança CCA). Houve uma grande quantidade de pesquisas sobre segurança CCA na última década e, dado o tempo alocado, podemos apenas resumir os principais resultados dos últimos anos. As aulas contêm sugestões de leituras adicionais para os interessados em saber mais sobre sistemas de chave pública com segurança CCA. O conjunto de problemas desta semana envolve um pouco mais de matemática do que o normal, mas deve expandir seu conhecimento sobre criptografia de chave pública. Por favor, não se acanhe em postar perguntas no fórum. Esta é a última semana do curso Crypto I. Espero que todos tenham aprendido muito e aproveitado o material. A criptografia é um belo tópico com muitos problemas em aberto e espaço para mais pesquisas. Espero vê-los em Crypto II, onde abordaremos outros tópicos básicos e alguns tópicos mais avançados.
+
+
+--------
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
 
 <details>	
  <summary><b> Week 7 </b> </b></summary> 
-  <h4> Week 7 </h4>
+ 
+week 7
+--------
+Parabéns! Chegamos ao final do curso. Este módulo contém apenas o exame final que abrange todo o curso. Espero que todos tenham aprendido muito durante essas 6 semanas. Boa sorte no exame final e espero vê-lo em um curso futuro!
+
+--------
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
