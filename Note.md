@@ -11,6 +11,124 @@
  O tópico desta semana é uma visão geral do que é a criptografia, bem como nosso primeiro exemplo de cifras. Os senhores aprenderão sobre pseudoaleatoriedade e como usá-la para criptografia. Também veremos algumas definições básicas de criptografia segura.
 
  --------
+### **1. DES (Data Encryption Standard)**
+
+- **Descrição**: Algoritmo de cifragem simétrica desenvolvido nos anos 70 pela IBM e padronizado pelo NIST em 1977.
+- **Funcionamento**:
+    - Usa **chave de 56 bits** (com 8 bits de paridade) e opera em **blocos de 64 bits**.
+    - Realiza **16 rodadas** de permutações (P-boxes) e substituições (S-boxes), envolvendo uma função de expansão, XOR com a chave e substituição.
+- **Propriedades**:
+    - **Simetria**: Mesma chave para cifrar e decifrar.
+    - **Eficiência**: Adequado para hardware dos anos 70/80.
+- **Problemas**:
+    - O tamanho pequeno da chave torna-o vulnerável a ataques de força bruta (quebrado em menos de 24 horas).
+- **Status**: Substituído por algoritmos mais seguros (e.g., AES).
+
+---
+
+### **2. Triple DES (3DES)**
+
+- **Descrição**: Extensão do DES para superar sua limitação de segurança.
+- **Funcionamento**:
+    - Aplica o DES três vezes sobre os dados: C=E(K3,D(K2,E(K1,M))).
+        
+        C=E(K3,D(K2,E(K1,M)))C = E(K_3, D(K_2, E(K_1, M)))
+        
+        - EEE: Cifragem.
+        - DDD: Decifragem.
+    - Pode operar com duas ou três chaves:
+        - **Modo 2-chaves**: K1=K3 → Chave efetiva de 112 bits.
+            
+            K1=K3K_1 = K_3
+            
+        - **Modo 3-chaves**: Chave efetiva de 168 bits.
+- **Propriedades**:
+    - Resistente a ataques de força bruta e meet-in-the-middle.
+    - Compatível com sistemas legados baseados em DES.
+- **Problemas**:
+    - Lento em comparação ao AES.
+- **Status**: Gradualmente descontinuado em favor do AES (NIST descontinuou 3DES em 2023).
+
+---
+
+### **3. Double DES (2DES)**
+
+- **Descrição**: Variante do DES que aplica o algoritmo duas vezes com duas chaves diferentes.
+- **Funcionamento**:
+    - C=E(K2,E(K1,M))C = E(K_2, E(K_1, M))C=E(K2,E(K1,M)), onde K1 e K2 são chaves independentes.
+        
+        K1K_1
+        
+        K2K_2
+        
+- **Problemas**:
+    - Vulnerável ao ataque **meet-in-the-middle**, reduzindo a segurança efetiva de 112 bits para cerca de 257 operações (devido à necessidade de armazenamento e comparação de intermediários).
+        
+        2572^{57}
+        
+- **Status**: Não amplamente adotado, substituído por 3DES.
+
+---
+
+### **4. Triple DES em padrão NIST**
+
+- **Descrição**: O NIST padronizou o 3DES para cenários de transição entre DES e AES.
+- **Modos de operação**:
+    - **ECB (Electronic Codebook)**: Divide os dados em blocos independentes (vulnerável a padrões repetidos).
+    - **CBC (Cipher Block Chaining)**: Introduz encadeamento entre blocos para melhorar a segurança.
+- **Problemas**:
+    - Obsoleto devido ao desempenho inferior e aumento das vulnerabilidades teóricas (por exemplo, ataques de texto conhecido).
+- **Status atual**: Descontinuado oficialmente pelo NIST em 2023.
+
+---
+
+### **5. AES (Advanced Encryption Standard)**
+
+- **Descrição**: Algoritmo de cifragem simétrica que substituiu o DES/3DES como padrão em 2001.
+- **Funcionamento**:
+    - Baseado na cifra Rijndael.
+    - Opera em **blocos de 128 bits**, com chaves de 128, 192 ou 256 bits.
+    - Realiza 10, 12 ou 14 rodadas de operações, incluindo substituição (SubBytes), permutação (ShiftRows), mistura (MixColumns) e chave XOR (AddRoundKey).
+- **Propriedades**:
+    - Alta segurança e resistência contra ataques modernos, como análise diferencial ou de chave-relacionada.
+    - Projetado para ser eficiente em hardware e software.
+- **Uso**:
+    - Amplamente adotado em protocolos de segurança (e.g., TLS, VPNs, criptografia de discos e dispositivos móveis).
+- **Status**: Padrão global para cifragem simétrica.
+
+---
+
+### **6. LFSP (Linear Feedback Shift Register - Pseudo-Random)**
+
+- **Descrição**: Um gerador de sequências pseudoaleatórias baseado em registradores de deslocamento com feedback linear.
+- **Funcionamento**:
+    - Um registro binário de tamanho n gera a próxima saída com base em valores anteriores e uma função de feedback.
+        
+        nn
+        
+    - Sequência periódica com bom desempenho estatístico.
+- **Propriedades**:
+    - Simples e eficiente em hardware.
+    - Usado em cifras de fluxo e sistemas de comunicação (e.g., geração de chaves de sessão).
+- **Problemas**:
+    - **Inseguro para criptografia**: Se o estado interno for descoberto, as próximas saídas podem ser previstas.
+- **Uso moderno**: Aplicações limitadas a sistemas onde segurança não é a prioridade principal.
+
+---
+
+### **7. PRG (Pseudo-Random Generator)**
+
+- **Descrição**: Um algoritmo que expande uma semente curta em uma sequência de bits pseudoaleatórios, com aparência indistinguível de aleatórios.
+- **Propriedades**:
+    - Indistinguibilidade: Um PRG seguro torna suas saídas imprevisíveis.
+    - Base em problemas difíceis (e.g., RSA, curvas elípticas) para segurança criptográfica.
+- **Usos**:
+    - Geração de chaves criptográficas.
+    - Algoritmos de cifra de fluxo e protocolos de segurança.
+- **Exemplo seguro**:
+    - PRG baseados em AES ou funções hash modernas (SHA-256).
+- **Status**: Fundamental para criptografia moderna.
+ 
  ------------------------------------------------------------------------
   </details>
  
