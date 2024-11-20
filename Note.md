@@ -142,7 +142,69 @@ week 3
 O tópico desta semana é a integridade dos dados. Discutiremos várias construções clássicas para sistemas MAC que são usadas para garantir a integridade dos dados. Por enquanto, discutiremos apenas como evitar a modificação de dados não secretos. Na próxima semana, voltaremos à criptografia e mostraremos como fornecer confidencialidade e integridade. O projeto de programação desta semana mostra como autenticar grandes arquivos de vídeo. Mesmo que o senhor não faça o projeto, leia a descrição do projeto - ele ensina um conceito importante chamado cadeia de hash.
 
 --------
+Um exemplo os arquivos do nosso disco no nosso Windows, que não são protegidos pois não tem problemas de confidencialidade ou em proteção de banners web onde eles também não tem medo de poderem copiar ou baixar as imagens no site… sem problemas de confidencialidade.
 
+Mas existe outro caso MAC’s para fornecer integridade em mensagens, um código de autenticação que tem uma chave compartilhada entre ambos, onde com a mensagem gerada pelos dois junto com a tag de bob verifica se o valor vai ser “sim” ou “não”
+![image.png](https://i.imgur.com/zFAvsLC.png)
+
+Então considerando CRC, CRC é significa verifição de redundância cíclica. é mandada entro da tag de alice e mandada para a tag de bob para ver se o valor é correto ou não.
+
+O problema desse modelo é que é muito facil para um atacante bloquear essa mensagem, e atacar emcima dela, só indo na mensagem m e tag que ela está completamente bloqueada (mesmo que ela esteja completamente encriptada, mas vai ser bloqueada) fazendo com que seja protegida por detecção de ataques randômicos mas não de ataques maliciosos. 
+
+E nosso objetivo é garantir integridade até mesmo um atacante mal-intencionado não possa modificar as mensagens no caminho entre os dois.
+
+Um chamado “Ataque de mensagem escolhida” que basicamente, Alice manda uma mensagem e quando enviada envia a tag junto com a mensagem fazendo com que ela envie as tag’s recebidas e manda para o atacante 
+
+(Exemplo: Alice recebe um email, talvez Alice queria salvar o e-mail no disco , então ela computara a tag no disco , e ele peça para mandar mais informações, fazendo com que alice mande a sua tag junto com a tag do atacante que estava computavel no disco.
+
+Esse caso dificuldade a criptografia da chave secreta aleatória. fazendo com que faça uma chave secreta errada.
+
+A proteção de arquivos no sistema também é parecido com essa ideia, onde cada arquivo é seguro com uma tag, mas caso a maquina foi infectada as tag’s são modificadas em cada arquivo, fazendo com que o arquivo possa criar chaves validas em arquivos criados por ele mesmo, sem que o computador detecte essa invalidade pois ele é um programa valido pelo proprio dispositivo. 
+
+Mas para contornar isso, precisar dar um reboot no sistema, e verificar o mac de cada arquivo, se ver que não tem tags validas o usuário detectará todos os arquivos que foram modificados pelo vírus. 
+
+(o virus pode trocar os arquivos também, fazer com que um arquivo original seja copiado pelo virus, mas na verdade o arquivo original ser o arquivo detectado como viruse o virus ser o arquivo falando ser o orignal)
+
+![image.png](https://i.imgur.com/a1MjkTN.png)
+
+Os **Message Authentication Codes (MACs)** baseados em **Pseudo-Random Functions (PRFs)** são mecanismos criptográficos que garantem a integridade e autenticidade de mensagens. Esses MACs utilizam as propriedades das PRFs para gerar valores de autenticação difíceis de falsificar.
+
+### Estrutura básica
+
+Um MAC baseado em PRF funciona da seguinte forma:
+
+1. Uma função PRF é usada como base, representada por Fk(x), onde:Fk(x)
+    - k é uma chave secreta.
+    - x é o valor de entrada (geralmente a mensagem ou uma transformação dela).
+2. O MAC é gerado como MAC(k,m) = Fk(m), onde:MAC(k,m) = Fk(m)
+    - k é a chave secreta compartilhada.
+    - m é a mensagem que se deseja autenticar.
+
+### Características principais
+
+- **Integridade**: Um adversário não pode modificar a mensagem sem que o receptor perceba, pois a alteração resultaria em um MAC inválido.
+- **Autenticidade**: Apenas quem conhece a chave secreta pode gerar o MAC correto para uma mensagem específica.
+- **Segurança baseada na PRF**: A segurança do MAC depende da qualidade da PRF. Uma PRF bem projetada torna difícil para um adversário distinguir suas saídas de números verdadeiramente aleatórios.
+
+### Vantagens dos MACs baseados em PRFs
+
+1. **Eficiência computacional**: PRFs, como aquelas baseadas em construções de cifragem (por exemplo, AES), são rápidas e eficientes para aplicações práticas.
+2. **Flexibilidade**: Podem ser aplicados a mensagens de tamanhos variados, geralmente usando técnicas como preenchimento ou divisão da mensagem em blocos.
+3. **Segurança comprovada**: A segurança é formalmente analisada e está ligada à robustez da PRF subjacente.
+
+### Exemplos práticos
+
+Um exemplo comum de MAC baseado em PRF é o **HMAC (Hash-based Message Authentication Code)**. Ele utiliza uma função de hash criptográfica como PRF, combinando eficiência e segurança. A fórmula básica do HMAC é:
+
+HMAC(k,m) = Hash((k ⊕ ipad) ∥ Hash((k ⊕ opad) ∥ m))
+
+Onde:
+
+- ⊕ é a operação XOR.
+- ipad e opad são constantes específicas.
+- Hash é uma função hash como SHA-256.
+
+Esse tipo de MAC é amplamente usado em protocolos de segurança, como SSL/TLS, IPSec e outros.
  
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
