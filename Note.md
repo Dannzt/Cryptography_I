@@ -323,6 +323,117 @@ Onde:
 - Hash é uma função hash como SHA-256.
 
 Esse tipo de MAC é amplamente usado em protocolos de segurança, como SSL/TLS, IPSec e outros.
+
+**CBC-MAC:** 
+
+tem uma simularidade muito grande com o AES, fazendo uma cifra por bloco, passando para cada matrix e criptando novamente.
+![image](https://github.com/user-attachments/assets/d11e08d7-02c1-43bd-a169-b84d45826145)
+
+Sendo no final uma chave independente F(k1) passando a tag depois disso tudo.
+
+Fazendo com que o CBC-MAC seja seguro para mensagens de comprimento fixo, mas não é adequado para comprimentos variáveis sem modificações adicionais. Para aplicações práticas modernas, é recomendado o uso de **CMAC** ou outros esquemas de autenticação, como HMAC, que são mais robustos e seguros contra ataques conhecidos.
+
+**NMAC:** 
+
+Utiliza de uma forma um pouco diferente, a criptografia funciona onde os blocos criptografam a chave que está na função F passando pro cada bloco de M onde no final T que é a parte mais inidentificável do modelo NMAC, não sendo um mac muito seguro pois não conseguimos mapear este elemento T.
+
+Um sistema de criptografia feita em cascata.
+![image](https://github.com/user-attachments/assets/48a87ffc-1f5c-429d-9033-1629006585a8)
+
+O **PMAC (Parallelizable Message Authentication Code)** e o **Carter-Wegman MAC** são métodos para gerar códigos de autenticação de mensagens (MACs), garantindo a integridade e autenticidade dos dados. Eis um resumo de ambos:
+
+---
+
+### **PMAC (Parallelizable Message Authentication Code)**
+
+- **Definição**: Construção de MAC projetada para alta eficiência e paralelização.
+- **Funcionamento**:
+    1. Processa blocos de dados simultaneamente.
+    2. Utiliza um cifrador de bloco (ex: AES) em modo especial para gerar o código de autenticação.
+    3. Processa cada bloco independentemente, facilitando a execução paralela.
+- **Vantagens**:
+    - Ideal para sistemas modernos com suporte à computação paralela.
+    - Oferece alta eficiência sem comprometer a segurança.
+- **Aplicações**: Comum em sistemas que processam grandes volumes de dados rapidamente.
+
+---
+
+### **Carter-Wegman MAC**
+
+- **Definição**: Técnica que combina hashing universal com criptografia para gerar MACs seguros.
+- **Funcionamento**:
+    1. Usa uma função de hashing universal para mapear a mensagem em um valor hash.
+    2. Criptografa esse valor com uma chave secreta, gerando o MAC.
+- **História**: Proposto por Carter e Wegman em 1981 como método eficiente de autenticação de mensagens.
+- **Vantagens**:
+    - Alta eficiência computacional.
+    - Resistência a ataques de força bruta devido ao hashing universal.
+- **Aplicações**: Usado em protocolos de rede e sistemas que priorizam eficiência e segurança.
+
+---
+
+### **Comparação**
+
+| Característica | PMAC | Carter-Wegman MAC |
+| --- | --- | --- |
+| **Eficiência** | Alta, especialmente com paralelismo | Alta, devido ao uso de hashing |
+| **Complexidade** | Relativamente mais complexo | Mais simples de implementar |
+| **Uso** | Sistemas modernos e paralelos | Protocolos de rede e sistemas gerais |
+
+Ambos os métodos têm características distintas e são aplicáveis conforme as necessidades de desempenho, segurança e simplicidade do sistema.
+
+O **Generic Birthday Attack** é um conceito fundamental na criptografia relacionado ao **paradoxo do aniversário**. Ele explora a probabilidade de encontrar colisões em funções hash ou em outros contextos matemáticos. Eis um resumo:
+
+---
+
+### **Definição**
+
+O Generic Birthday Attack é uma abordagem genérica, não específica de algoritmos, que busca encontrar colisões em funções hash ou problemas relacionados. Baseia-se na ideia de que, em um conjunto suficientemente grande, as chances de duas entradas diferentes gerarem o mesmo resultado (colisão) aumentam significativamente devido ao paradoxo do aniversário.
+
+---
+
+### **Funcionamento**
+
+- Para uma função hash de comprimento n bits:n
+    - A busca por colisões tem complexidade **O(2^(n/2))**, e não O(2^n), devido ao aumento exponencial da probabilidade de colisão conforme o número de entradas cresce.
+        
+        O(2^n)
+        
+    - O ataque envolve a geração de várias entradas e a comparação dos valores hash resultantes.
+- Consiste em criar pares e verificar se há alguma repetição (colisão).
+
+---
+
+### **Exemplo**
+
+- Considere uma função hash de 128 bits:
+    - Embora haja 2^128 possibilidades únicas, o Generic Birthday Attack permite encontrar colisões com cerca de 2^64 tentativas, significativamente menos que uma busca exaustiva.
+        
+        2^128
+        
+        2^64
+        
+
+---
+
+### **Implicações na Criptografia**
+
+1. **Segurança de Funções Hash**:
+    - Funções hash modernas (como SHA-256) são projetadas para resistir a esses ataques, garantindo comprimentos suficientemente grandes para n.
+        
+        n
+        
+    - O comprimento do hash deve ser o dobro da segurança desejada (por exemplo, para 128 bits de segurança, usam-se hashes de 256 bits).
+2. **Certificados Digitais e Assinaturas**:
+    - A resistência a colisões é crucial para evitar fraudes, como a falsificação de assinaturas digitais ou certificados.
+
+---
+
+### **Conclusão**
+
+O Generic Birthday Attack não explora fraquezas específicas de uma função, mas sim uma propriedade estatística universal. Para resistir a ele, funções hash e algoritmos criptográficos devem ser projetados com tamanhos de chave e hash adequados, garantindo segurança contra colisões probabilísticas.
+
+(foi de gepeto mesmo, minha tia não estava me deixando fazer)
  
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
