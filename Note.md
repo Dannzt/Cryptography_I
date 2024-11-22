@@ -479,9 +479,9 @@ O tópico desta semana é a criptografia de chave pública: como criptografar us
 <details>	
  <summary><b> Week 7 </b> </b></summary> 
  
-week 7
+Certificado
 --------
-Parabéns! Chegamos ao final do curso. Este módulo contém apenas o exame final que abrange todo o curso. Espero que todos tenham aprendido muito durante essas 6 semanas. Boa sorte no exame final e espero vê-lo em um curso futuro!
+Parabéns! Chegamos ao final do curso. Este módulo contém apenas o certificado do curso. Foi um percurso desafiador, mas recompensador e valioso!
 
 --------
 
