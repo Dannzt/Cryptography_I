@@ -2,7 +2,7 @@
 </h2>
   <br>
 <div align="center">
-  <img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/stanford-university-stacked.png" width="500">
+  <img src="https://identity.stanford.edu/wp-content/uploads/sites/3/2020/07/stanford-university-stacked.png" width="300">
 </div>
 
 ----------------------------
