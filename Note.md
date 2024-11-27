@@ -664,7 +664,7 @@ O tópico desta semana é a troca básica de chaves: como configurar uma chave s
   <details>	
  <summary><b> Week 6 </b> </b></summary> 
    
-week 6
+ 
 --------
 O tópico desta semana é a criptografia de chave pública: como criptografar usando uma chave pública e descriptografar usando uma chave secreta. A criptografia de chave pública é usada para o gerenciamento de chaves em sistemas de arquivos criptografados, em sistemas de mensagens criptografadas e para muitas outras tarefas. Os vídeos abrangem duas famílias de sistemas de criptografia de chave pública: uma baseada em funções de alçapão (RSA em particular) e outra baseada no protocolo Diffie-Hellman. Construímos sistemas que são seguros contra adulteração, também conhecidos como segurança de texto cifrado escolhido (segurança CCA). Houve uma grande quantidade de pesquisas sobre segurança CCA na última década e, dado o tempo alocado, podemos apenas resumir os principais resultados dos últimos anos. As aulas contêm sugestões de leituras adicionais para os interessados em saber mais sobre sistemas de chave pública com segurança CCA. O conjunto de problemas desta semana envolve um pouco mais de matemática do que o normal, mas deve expandir seu conhecimento sobre criptografia de chave pública. Por favor, não se acanhe em postar perguntas no fórum. Esta é a última semana do curso Crypto I. Espero que todos tenham aprendido muito e aproveitado o material. A criptografia é um belo tópico com muitos problemas em aberto e espaço para mais pesquisas. Espero vê-los em Crypto II, onde abordaremos outros tópicos básicos e alguns tópicos mais avançados.
 
@@ -676,7 +676,7 @@ O tópico desta semana é a criptografia de chave pública: como criptografar us
   </details>
 
 <details>	
- <summary><b> Week 7 </b> </b></summary> 
+ <summary><b> Certificate </b> </b></summary> 
  
 Certificado
 --------
