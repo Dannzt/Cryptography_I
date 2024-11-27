@@ -446,6 +446,205 @@ O Generic Birthday Attack não explora fraquezas específicas de uma função, m
  O tópico desta semana é criptografia autenticada: métodos de criptografia que garantem tanto a confidencialidade quanto a integridade. Também discutiremos alguns pontos importantes, como a forma de pesquisar dados criptografados. Esta é a nossa última semana de estudo  da criptografia simétrica. Na próxima semana, começaremos com o gerenciamento de chaves e a criptografia de chave pública. Como de costume, há também um projeto de programação de crédito extra. O projeto desta semana envolve um pouco de rede para experimentar um        ataque de texto cifrado escolhido em um site de brinquedo.
  
  --------
+ ![image.png](https://i.imgur.com/qdRj6Ty.png)
+
+Nesse exemplo vemos como seria o trafego de um sistema na internetem TCP/IP, passando o packet para o serv, e distribuindo para as respectivas portas.
+
+![image.png](https://i.imgur.com/INe5NNO.png)
+
+Neste exemplo vemos que o IPsec é mais seguro, pois o packet com uma chave, manda a mensagem criptografada com a chave pro serv, quanto o data desencripta a mensagem ai sendo transferida para a porta=80.
+
+Passando para bob a mensagem correta.
+
+Então agora gostaria de mostrar que sem integridade, nesta configuração, não podemos alcançar nenhuma forma de confidencialidade. 
+
+![image.png](https://i.imgur.com/qAuv1PZ.png)
+
+Pois quando caso um atacante intercepte a mensagem encaminhada para o webserver pode ser mudado para a porta de destino para bob, fazendo com que mensagens do server vai para o caminho errado e compartilhando prováveis informações sigilosas. ]
+
+Vimos 2 exemplos que mostram como dois ataques ativos podem destruir completamente a criptografia segura do CPA.
+
+**Authenticated Encryption**
+
+**Authenticated Encryption (AE)** é uma abordagem criptográfica que combina duas funções fundamentais em uma única operação: **confidencialidade** e **autenticidade**. O objetivo principal do AE é garantir que os dados transmitidos ou armazenados não apenas permaneçam confidenciais (protegidos contra acesso não autorizado), mas também sejam autenticamente verificados (protegidos contra alterações não autorizadas).
+
+![image.png](https://i.imgur.com/kEbOdMb.png)
+
+Duas copias CCA game:
+
+O termo "CCA" refere-se a "Chosen-Ciphertext Attack" (Ataque por Texto Cifrado Escolhido), um modelo de ataque na criptografia onde o atacante pode escolher textos cifrados específicos e obter suas respectivas decifrações. O objetivo é reunir informações que permitam deduzir a chave secreta ou comprometer a segurança do sistema criptográfico.
+
+Existem duas principais variantes desse ataque:
+
+1. **CCA1 (Ataque por Texto Cifrado Escolhido Não Adaptativo)**: O atacante escolhe um conjunto de textos cifrados para serem decifrados antes de receber o texto cifrado alvo. Após obter as decifrações desses textos, o atacante tenta inferir informações sobre o texto cifrado alvo, sem a possibilidade de realizar novas consultas de decifração após essa etapa.
+2. **CCA2 (Ataque por Texto Cifrado Escolhido Adaptativo)**: Nesta variante mais poderosa, o atacante pode continuar a escolher e decifrar textos cifrados mesmo após receber o texto cifrado alvo, com a restrição de não consultar a decifração do próprio texto cifrado alvo. Essa capacidade adaptativa torna o ataque mais eficaz e representa um desafio maior para a segurança dos sistemas criptográficos.
+
+Para proteger sistemas contra ataques CCA, é essencial utilizar esquemas de criptografia que ofereçam segurança comprovada contra esses tipos de ataques. Por exemplo, o esquema Cramer-Shoup é conhecido por ser seguro contra ataques CCA2.
+
+Além disso, a implementação de medidas como a autenticação de mensagens pode ajudar a prevenir ataques CCA, garantindo que qualquer modificação não autorizada nos textos cifrados seja detectada.
+
+Em resumo, os ataques CCA destacam a importância de desenvolver e implementar sistemas criptográficos robustos que resistam a adversários capazes de manipular e decifrar textos cifrados escolhidos, assegurando a confidencialidade e integridade das informações.
+
+Agora vamos apresentar 3 exemplos
+
+![image.png](https://i.imgur.com/epdh0Ra.png)
+
+No exemplo SSL:  (Mac-then-Encrypt)
+
+A forma como o SSL combina criptografia e MAC na esperança de obter criptografia autenticada, é basicamente, você pega o texto simples, ele passa antes um criptografia tag, no final passando a mensagem criptografada com a tag e descriptografa.
+
+No exemplo IPsec: (Encrypt,then-mac)
+
+( No exemplo manda um texto simples, é criptografada no inicio antes de ir, e é entregue para a tag com a mensagem criptografada.
+
+No exemplo SSH: (encrypt-and-mac)
+
+ é bem semelhante ao IPsec, mas a diferença é que a mensagem é computada no final com a tag, é não pelo texto criptografado.
+
+### **1. GCM (Galois/Counter Mode)**
+
+- **Tipo**: Modo autenticado de cifra.
+- **Características**:
+    - Combina confidencialidade e autenticidade.
+    - Baseado no modo de contador (CTR) para criptografia.
+    - Utiliza um código de autenticação universal de Galois (GHASH) para verificar a integridade e autenticidade.
+- **Vantagens**:
+    - Extremamente rápido, adequado para hardware e software.
+    - Permite paralelismo eficiente.
+- **Limitações**:
+    - Vulnerável a reutilização do mesmo IV (vetor de inicialização) com a mesma chave, o que compromete segurança.
+- **Usos**:
+    - HTTPS, VPNs, protocolos de segurança de rede.
+
+---
+
+### **2. CCM (Counter with CBC-MAC)**
+
+- **Tipo**: Modo autenticado de cifra.
+- **Características**:
+    - Combina CTR para criptografia e CBC-MAC para autenticação.
+    - Funciona em blocos.
+    - Requer que a cifra seja executada duas vezes: uma para criptografia e outra para autenticação.
+- **Vantagens**:
+    - Simplicidade e compatibilidade com implementações AES existentes.
+    - É determinístico, útil para ambientes sensíveis à sincronização.
+- **Limitações**:
+    - Mais lento que GCM devido ao uso de CBC-MAC e processamento sequencial.
+    - Não suporta paralelismo eficiente.
+- **Usos**:
+    - Ideal para sistemas embarcados e aplicações IoT (Internet das Coisas).
+
+---
+
+### **3. EAX (Encrypt-then-MAC Mode)**
+
+- **Tipo**: Modo autenticado de cifra.
+- **Características**:
+    - Segue o paradigma **Encrypt-then-MAC**: primeiro criptografa os dados e, em seguida, calcula a autenticação.
+    - Combina CTR para criptografia e CMAC para autenticação.
+- **Vantagens**:
+    - Flexível e altamente seguro devido à separação clara entre criptografia e autenticação.
+    - Suporte a mensagens de comprimento variável.
+- **Limitações**:
+    - Desempenho inferior ao GCM em cenários de alta velocidade.
+    - Requer múltiplas chamadas para a cifra subjacente (uma para CMAC e outra para CTR).
+- **Usos**:
+    - Aplicações onde a segurança e flexibilidade são mais críticas do que o desempenho bruto.
+
+---
+
+### Comparação Geral:
+
+| Característica | **GCM** | **CCM** | **EAX** |
+| --- | --- | --- | --- |
+| **Velocidade** | Alta | Média | Média |
+| **Paralelismo** | Sim | Não | Parcial |
+| **Flexibilidade** | Alta | Baixa | Alta |
+| **Complexidade** | Média | Baixa | Média |
+| **Uso de IV Único** | Fundamental | Importante | Importante |
+
+### **TLS (Transport Layer Security)**
+
+O **TLS** é um protocolo criptográfico amplamente utilizado para garantir **segurança** e **privacidade** em comunicações digitais, especialmente na internet.
+
+---
+
+### **Objetivos principais:**
+
+1. **Confidencialidade**: Garantir que as informações trocadas não sejam acessíveis por terceiros.
+2. **Integridade**: Assegurar que os dados não sejam alterados durante a transmissão.
+3. **Autenticação**: Verificar a identidade das partes envolvidas na comunicação (como o cliente e o servidor).
+
+---
+
+### **Principais componentes:**
+
+1. **Handshake Protocol**:
+    - Etapa inicial onde cliente e servidor negociam:
+        - Versão do protocolo.
+        - Algoritmos criptográficos.
+        - Troca de chaves para estabelecer um canal seguro.
+    - Pode incluir autenticação mútua (geralmente apenas o servidor é autenticado via certificado).
+2. **Registro de Dados (Record Protocol)**:
+    - Define como os dados são fragmentados, comprimidos, criptografados e autenticados antes de serem enviados.
+3. **Alert Protocol**:
+    - Utilizado para comunicação de erros ou alertas entre cliente e servidor.
+4. **Change Cipher Spec Protocol**:
+    - Sinaliza a troca de parâmetros de criptografia durante a conexão.
+
+---
+
+### **Principais versões:**
+
+1. **TLS 1.0 e 1.1**:
+    - Obsoletos devido a vulnerabilidades e métodos de criptografia ultrapassados.
+2. **TLS 1.2**:
+    - Introduziu maior flexibilidade na escolha de algoritmos de criptografia.
+    - Suporta AEAD (Authenticated Encryption with Associated Data), como GCM.
+    - Ainda amplamente usado.
+3. **TLS 1.3** (atual):
+    - Mais seguro e eficiente.
+    - Removeu algoritmos inseguros (ex.: MD5, SHA-1, RC4).
+    - Melhorou a performance reduzindo o número de round trips no handshake.
+
+---
+
+### **Principais algoritmos usados em TLS:**
+
+1. **Criptografia de Chave Pública**:
+    - RSA, Diffie-Hellman, ECDH.
+2. **Assinaturas Digitais**:
+    - RSA, ECDSA.
+3. **Criptografia Simétrica**:
+    - AES (com GCM ou CBC), ChaCha20.
+4. **Funções Hash**:
+    - SHA-256, SHA-384.
+
+---
+
+### **Fluxo típico de uma conexão TLS**:
+
+1. **Handshake**:
+    - Cliente e servidor negociam parâmetros de criptografia.
+    - O servidor envia seu certificado para autenticação.
+    - Chaves são trocadas e geradas.
+2. **Estabelecimento de Sessão**:
+    - Um canal seguro é configurado.
+3. **Transferência de Dados**:
+    - Os dados são criptografados e transmitidos.
+4. **Encerramento**:
+    - As partes encerram a conexão de forma segura.
+
+---
+
+### **Usos comuns do TLS:**
+
+- **HTTPS**: Proteger sites e aplicativos web.
+- **E-mail**: SMTP, IMAP e POP3 seguros.
+- **VPNs**: Garantir segurança em conexões remotas.
+- **Outros protocolos**: FTPS, XMPP, entre outros.
+
+O **TLS** é fundamental para a segurança digital moderna. O uso da versão mais recente (**TLS 1.3**) é recomendado para aproveitar melhor desempenho e maior segurança.
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
