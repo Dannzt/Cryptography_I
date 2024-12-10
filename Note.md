@@ -680,9 +680,9 @@ O tópico desta semana é a criptografia de chave pública: como criptografar us
  
 Certificado
 --------
-Parabéns! Chegamos ao final do curso. Este módulo contém apenas o certificado do curso. Foi um percurso desafiador, mas recompensador e valioso!
+![image](https://github.com/user-attachments/assets/54359617-9b21-4d8f-9fb7-d2b6905bdf7a)
 
---------
+
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
   </details>
